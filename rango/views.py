@@ -18,14 +18,15 @@ def index(request):
     # Place the list in our context_dict dictionary which will be passed to the template engine.
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
-    context_dict = {'categories': category_list}
-    context_dict['pages'] = page_list
+    context_dict = {'categories': category_list,
+                    'category_name': 'Home',
+                    'pages': page_list}
 
     # Render the response and send it back!
     return render(request, 'rango/index.html', context_dict)
 
 def about(request):
-    context_dict = {'boldmessage': "About"}
+    context_dict = {'header': "About"}
     return render(request, 'rango/about.html', context_dict)
 
 def category(request, category_name_slug):
@@ -157,7 +158,10 @@ def register(request):
     # Render the template depending on the context.
     return render(request,
             'rango/register.html',
-            {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
+            {'user_form': user_form,
+             'profile_form': profile_form,
+             'registered': registered,
+             'category_name': 'Register'} )
 
 def user_login(request):
 
@@ -202,7 +206,9 @@ def user_login(request):
 
 @login_required
 def restricted(request):
-    return HttpResponse("Since you're logged in, you can see this text!")
+    return render(request, 'rango/restricted.html',
+                {'notice': "Since you're logged in, you can see this text!",
+                 'category_name': 'Restricted'})
 
 # Use the login_required() decorator to ensure only those logged in can access the view.
 @login_required
