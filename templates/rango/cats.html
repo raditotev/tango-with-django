@@ -4,7 +4,6 @@
         {% if c == act_cat %} <li  class="active" > {% else  %} <li>{% endif %}
             <a href="{% url 'category'  c.slug %}">{{ c.name }}</a></li>
     {% endfor %}
-    	<li ><a href="{% url 'search' %}">Search</a></li>
 {% else %}
     <li> <strong >There are no category present.</strong></li>
 
