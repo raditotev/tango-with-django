@@ -11,4 +11,6 @@ urlpatterns = patterns('',
         url(r'^goto/$', views.track_url, name='goto'),
         url(r'^register/$', views.register, name='register'),
         url(r'^profile/$', views.profile, name='profile'),
+        url(r'^users/$', views.users, name='users'),
+        url(r'^users/(?P<username>[\w\-]+)/$', views.user_profile, name='user_profile'),
         )

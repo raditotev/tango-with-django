@@ -235,6 +235,7 @@ def register(request):
         context_dict,
         context)
 
+@login_required
 def profile(request):
 
     user = User.objects.get(username=request.user)
@@ -248,3 +249,27 @@ def profile(request):
 
     return render(request, 'rango/profile.html', context_dict)
 
+@login_required
+def users(request):
+
+    users = User.objects.all()
+
+    context_dict = {'users': users}
+
+    return render(request, 'rango/users.html', context_dict)
+
+@login_required
+def user_profile(request, username):
+    user = User.objects.get(username=username)
+
+    try:
+        userprofile = UserProfile.objects.get(user=user)
+    except:
+        userprofile = None
+
+    context_dict = {'user': user,
+                    'userprofile': userprofile,
+                    'username': user.username
+                    }
+
+    return render(request, 'rango/user_profile.html', context_dict)
