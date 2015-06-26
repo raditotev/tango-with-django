@@ -10,4 +10,5 @@ urlpatterns = patterns('',
         url(r'^restricted/', views.restricted, name='restricted'),
         url(r'^goto/$', views.track_url, name='goto'),
         url(r'^register/$', views.register, name='register'),
+        url(r'^profile/$', views.profile, name='profile'),
         )

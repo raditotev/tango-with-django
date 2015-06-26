@@ -2,7 +2,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from rango.models import Category, Page
+from rango.models import Category, Page, User, UserProfile
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -234,3 +234,17 @@ def register(request):
         'rango/register.html',
         context_dict,
         context)
+
+def profile(request):
+
+    user = User.objects.get(username=request.user)
+
+    try:
+        userprofile = UserProfile.objects.get(user=user)
+    except:
+        userprofile = None
+
+    context_dict = {'user': user, 'userprofile': userprofile}
+
+    return render(request, 'rango/profile.html', context_dict)
+
