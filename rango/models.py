@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.core.exceptions import ValidationError
 
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
@@ -22,6 +23,8 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        if self.views < 0:
+            self.views = 0
         super(Category, self).save(*args, **kwargs)
 
     def __unicode__(self):  #For Python 2, use __str__ on Python 3
