@@ -27,6 +27,12 @@
                             {% elif page.views == 1 %}
                                 ({{ page.views }} view)
                             {% endif %}
+                            {% if page.first_visit %}
+                                <p>Page created: {{page.first_visit}}</p>
+                            {% endif %}
+                            {% if page.last_visit %}
+                                <p>Last visit: {{page.last_visit}}</p>
+                            {% endif %}
                         </li>
                         {% endfor %}
                     </ul>

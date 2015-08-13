@@ -1,2 +1,5 @@
+tangovenv/
+.coverage
 **/keys.py
 **/keys.pyc
+*.pyc

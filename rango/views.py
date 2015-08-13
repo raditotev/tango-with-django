@@ -6,8 +6,10 @@ from rango.models import Category, Page, User, UserProfile
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from datetime import datetime
+from django.utils import timezone
 from rango.bing_search import run_query
+from datetime import datetime
+
 
 def encode_url(str):
     return str.replace(' ', '_')
@@ -175,6 +177,7 @@ def track_url(request):
             page_id = request.GET['page_id']
             page = Page.objects.get(id=page_id)
             page.views += 1
+            page.last_visit = datetime.now()
             page.save()
             return HttpResponseRedirect(page.url)
     else:
